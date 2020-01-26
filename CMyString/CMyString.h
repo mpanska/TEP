@@ -11,13 +11,13 @@ public:
 	CMyString(const char *cChar);
 	CMyString(const CMyString &pcOther);
 
-	~CMyString() { if (ñ_string != NULL) delete[] ñ_string; };
+	~CMyString() { if (Ã±_string != NULL) delete[] Ã±_string; };
 
 
 	void vPrintString()
 	{
 		for (int ii = 0; ii < i_length; ii++)
-			cout << ñ_string[ii];
+			cout << Ã±_string[ii];
 		cout << endl;
 	}
 	//void vPrintString()
@@ -33,14 +33,14 @@ public:
 	{
 		string to_string = "";
 		for (int ii = 0; ii < i_length; ii++)
-			to_string += ñ_string[ii];
+			to_string += Ã±_string[ii];
 		
 		return to_string;
 	}
 
 private:
 
-	char* ñ_string;  
+	char* Ã±_string;  
 	int i_length; 
 
 	void vCopyFrom(const CMyString &pcOther);

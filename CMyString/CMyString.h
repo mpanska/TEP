@@ -10,42 +10,29 @@ public:
 	CMyString();
 	CMyString(const char *cChar);
 	CMyString(const CMyString &pcOther);
+	~CMyString() { if (с_string != NULL) delete[] с_string; };
 
-	~CMyString() { if (ñ_string != NULL) delete[] ñ_string; };
-
-
-	void vPrintString()
-	{
-		for (int ii = 0; ii < i_length; ii++)
-			cout << ñ_string[ii];
-		cout << endl;
-	}
-	//void vPrintString()
-
+	void vPrintString();
 
 	CMyString& operator= (const CMyString& pcOther); 
 	void operator= (const char *cChar);              
 	void operator+=(const char *cChar);     
 	CMyString& operator+ (const CMyString& pcOther); 
+	friend CMyString& operator+(const char* cChar, CMyString& pcOther);
 
+	bool isEmpty();
 
-	string sToStandard() 
-	{
-		string to_string = "";
-		for (int ii = 0; ii < i_length; ii++)
-			to_string += ñ_string[ii];
-		
-		return to_string;
-	}
+	string sToStandard();
 
 private:
 
-	char* ñ_string;  
+	char* с_string;  
 	int i_length; 
 
 	void vCopyFrom(const CMyString &pcOther);
 	bool bResize(int newSize);
 	int iSourceLength(const char *cChar);
+	
 };
 
 #endif 

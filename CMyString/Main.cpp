@@ -5,28 +5,22 @@
 
 int main()
 {
-	CMyString c32("some text to convert to string");
+	CMyString c_str;
+	c_str = "ma ";
+	c_str += "kota ";
+	c_str = c_str + "i psa";
+	c_str = "ala " + c_str;
 
-	CMyString c1;
-	CMyString c2(" is copied");
-	c1 = "something";
+	c_str.vPrintString();
 
-	CMyString c3(c1);
+	cout << c_str.sToStandard() << endl;
 
-	c3.vPrintString();
 
-	c3 = c1 + c2;
+	CMyString c_str2;
 
-	c3.vPrintString();
-
-	c3 = "this is operator= test";
-	c3 = c3 + " and an op+ test";
-	c3 += " with also a += test";
-	c3.vPrintString();
-
-	cout << c32.sToStandard() << endl;
+	cout << c_str.isEmpty() << endl;
+	cout << c_str2.isEmpty() << endl;
 
 	system("pause");
 	return 0;
 }
-

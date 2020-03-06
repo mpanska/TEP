@@ -3,50 +3,47 @@
 CMyString ::CMyString()
 {
 	i_length = 0;
-	ñ_string = new char[1];
-	ñ_string[0] = '\0';
+	с_string = new char[1];
+	с_string[0] = '\0';
 }
-//ctor bezparametrowy
 
 
 CMyString::CMyString(const char *cChar)
 {
 	i_length = iSourceLength(cChar);
-	ñ_string = new char[i_length];
+	с_string = new char[i_length];
 
 	for (int ii = 0; ii < i_length; ii++)
-		ñ_string[ii] = cChar[ii];
+		с_string[ii] = cChar[ii];
 }
-//ctor parametrowy
 
 
 CMyString::CMyString(const CMyString &pcOther)
 {
 	i_length = pcOther.i_length;
-	ñ_string = new char[i_length];
+	с_string = new char[i_length];
 
 	for (int ii = 0; ii < i_length; ii++)
-		ñ_string[ii] = pcOther.ñ_string[ii];
+		с_string[ii] = pcOther.с_string[ii];
 }
-//copy ctor
 
 
-//-----------helper methods-----------------------------------------------------------------------------------------
 void CMyString::vCopyFrom(const CMyString &pcOther)
 {
 	for (int ii = 0; ii < i_length; ii++)
-		ñ_string[ii] = pcOther.ñ_string[ii];
+		с_string[ii] = pcOther.с_string[ii];
 }
 //void CMyString::vCopyFrom(const CMyString &pcOther)
+
 
 bool CMyString::bResize(int newSize) 
 {
 	if (newSize <= 0)
 		return false;
 
-	delete(this->ñ_string);
+	delete(this->с_string);
 
-	this->ñ_string = new char[newSize];
+	this->с_string = new char[newSize];
 	i_length = newSize;
 	return true;
 }
@@ -63,21 +60,35 @@ int CMyString::iSourceLength(const char *cChar)
 	return i_source_length;
 }
 //int CMyString::iSourceLength(const char *cChar)
-//------------------------------------------------------------------------------------------------------------------
 
 
+void CMyString:: vPrintString()
+{
+	for (int ii = 0; ii < i_length; ii++)
+		cout << с_string[ii];
+	cout << endl;
+}
+//void vPrintString()
 
 
+string CMyString::sToStandard()
+{
+	string to_string = "";
+	for (int ii = 0; ii < i_length; ii++)
+		to_string += с_string[ii];
 
-//------------------------operators-----------------------------------------------------------------------------------
+	return to_string;
+}
+//string CMyString:: sToStandard()
+
 
 CMyString& CMyString:: operator= (const CMyString& pcOther)
 {
 	if (this != &pcOther)  // guard against  a = a;  
 	{
-		delete[] ñ_string;              // release old memory & then allocate new memory 
+		delete[] с_string;              // release old memory & then allocate new memory 
 		i_length = pcOther.i_length;
-		ñ_string = new char[i_length];
+		с_string = new char[i_length];
 		vCopyFrom(pcOther);
 	}
 	return *this;                  // return a reference to itself to allow a = b = c; 
@@ -87,13 +98,13 @@ CMyString& CMyString:: operator= (const CMyString& pcOther)
 void  CMyString:: operator= (const char *cChar)
 {
 	if (i_length != 0)
-		delete[] ñ_string;
+		delete[] с_string;
 
-	i_length = iSourceLength(cChar);  // count the length of init value
-	ñ_string = new char[i_length];    // allocate storage 
+	i_length = iSourceLength(cChar);  
+	с_string = new char[i_length];    
 
-	for (int ii = 0; ii < i_length; ii++) // copy init value into storage
-		ñ_string[ii] = cChar[ii];
+	for (int ii = 0; ii < i_length; ii++) 
+		с_string[ii] = cChar[ii];
 }
 //void  CMyString:: operator= (const char *cChar)
 
@@ -105,18 +116,18 @@ CMyString& CMyString:: operator+ (const CMyString& pcOther)
 	if (i_length == 0 && pcOther.i_length == 0)
 	{
 		c_res->i_length = 0;
-		c_res->ñ_string = NULL;
+		c_res->с_string = NULL;
 	}
 
 	c_res->i_length = i_length + pcOther.i_length;
-	c_res->ñ_string = new char[c_res->i_length];
+	c_res->с_string = new char[c_res->i_length];
 	int ii;
 	
 	for (ii = 0; ii < i_length; ii++)
-		c_res->ñ_string[ii] = ñ_string[ii];
+		c_res->с_string[ii] = с_string[ii];
 
 	for (int ij = 0; ij < pcOther.i_length; ij++, ii++)
-		c_res->ñ_string[ii] = pcOther.ñ_string[ij];
+		c_res->с_string[ii] = pcOther.с_string[ij];
 
 	return *c_res;
 }
@@ -133,15 +144,58 @@ void CMyString:: operator+=(const char *cChar)
 	int ii;
 
 	for (ii = 0; ii < i_length; ii++)
-		c_new_string[ii] = ñ_string[ii];
+		c_new_string[ii] = с_string[ii];
 
 	for (int ij = 0; ij < i_source_length; ij++, ii++)
 		c_new_string[ii] = cChar[ij];
 
-	delete[] ñ_string;
+	delete[] с_string;
 
 	this->i_length = i_new_length;
-	this->ñ_string = c_new_string;
+	this->с_string = c_new_string;
 }
 //void CMyString:: operator+=(const char *cChar)
+
+
+CMyString& operator+(const char* cChar, CMyString& pcOther)
+{
+	int i_source_length = 0;
+
+	while (cChar[i_source_length] != '\0')
+		i_source_length++;
+
+	CMyString *c_res = new CMyString;
+
+	if (i_source_length == 0 && pcOther.i_length == 0)
+	{
+		c_res->i_length = 0;
+		c_res->с_string = NULL;
+	}
+
+	c_res->i_length = i_source_length + pcOther.i_length;
+	c_res->с_string = new char[c_res->i_length];
+	int ii;
+
+	for (ii = 0; ii < i_source_length; ii++)
+		c_res->с_string[ii] = cChar[ii];
+
+	for (int ij = 0; ij < pcOther.i_length; ij++, ii++)
+		c_res->с_string[ii] = pcOther.с_string[ij];
+
+	return *c_res;
+}
+//CMyString& operator+(const char* cChar, CMyString& pcOther)
+
+
+bool CMyString:: isEmpty()
+{
+	if (strlen(с_string) == 0) 
+	{
+		cout << "string is empty\n";
+		return false;
+	}
+		
+	cout << "string is not empty\n";
+	return true;
+}
 

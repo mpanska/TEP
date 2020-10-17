@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-/*
+
 
 int main(int argc, char* argv[], char* env[])
 {
@@ -30,4 +30,3 @@ int main(int argc, char* argv[], char* env[])
 	return (int)*argv[1] - 48;
 }
 
-*/

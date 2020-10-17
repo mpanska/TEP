@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 
-/*
+
 int main(int argc, char* argv[], char* env[])
 {
 	puts("argumenty programu:");
@@ -12,4 +12,3 @@ int main(int argc, char* argv[], char* env[])
 
 	return 0;
 }
-*/
